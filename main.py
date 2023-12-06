@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from typing import Optional, Annotated
 import models
@@ -42,7 +42,7 @@ async def create_student(student: StudentBase, db: db_dependency):
     return response
 
 
-@app.get("/students/get_student_by/", status_code=status.HTTP_200_OK)
+@app.get("/students/get_student/", status_code=status.HTTP_200_OK)
 async def get_student(
         id: Optional[int] = None,
         name: Optional[str] = None,
