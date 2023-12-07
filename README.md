@@ -5,6 +5,10 @@
 
 # A FastAPI demo 
 
+<span style="color:red;font-weight:700;font-size:100px">
+    Not tested on Windows.
+</span>
+
 ## Requirements
 - Python 3.10
 - FastAPI 1.104.1
