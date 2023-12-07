@@ -1,15 +1,13 @@
 from fastapi import APIRouter, Depends, status
 from typing import Optional
-from database import engine, SessionLocal
+from database import SessionLocal
 from sqlalchemy.orm import Session
 
-import models
 from basemodels import GetStudentsDeserializer, UpdateStudentsDeserializer, CreateStudentsDeserializer, DeleteStudentDeserializer
 from common.responses import APIResponseMessage
 from services.students import create_student, get_students, update_students, delete_student
 
 router = APIRouter()
-models.Base.metadata.create_all(bind=engine)
 
 
 def get_db():
