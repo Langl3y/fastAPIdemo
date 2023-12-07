@@ -17,7 +17,12 @@ class GetStudentsDeserializer(BaseModel):
 
 
 class UpdateStudentsDeserializer(BaseModel):
+    id: int
     name: Optional[str] = None
     age: Optional[int] = None
     course: Optional[str] = None
     is_deleted: Optional[bool] = None
+
+
+class DeleteStudentDeserializer(BaseModel):
+    id: int
