@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from typing import Optional, Annotated
+
 import models
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
@@ -10,10 +11,10 @@ models.Base.metadata.create_all(bind=engine)
 
 
 class StudentBase(BaseModel):
-    id: int
     name: str
     age: int
     course: str
+
 
 
 def get_db():
@@ -29,7 +30,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.post("/students/create_student/", status_code=status.HTTP_201_CREATED)
 async def create_student(student: StudentBase, db: db_dependency):
-    db_student = models.Student(**student.dict())
+    db_student = models.Student(**student.model_dump())
     db.add(db_student)
     db.commit()
 
@@ -76,3 +77,5 @@ async def get_student(
     }
 
     return response
+
+
