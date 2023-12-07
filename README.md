@@ -40,6 +40,7 @@ uvicorn main:app
 This demo will not work if there is no schema for it to connect to. 
 Please create a schema in mySQL first, then reconfigure URL_DATABASE so It matches your schema's name.
 
+Also, tables will be automatically created upon creating any object by SQLAlchemy. Be sure not to pre-create any tables inside the schema to avoid conflict.
 ## APIs Documentation
 
 See: host/docs in your browser for APIs documentation.
