@@ -1,6 +1,3 @@
-from fastapi import status
-
-
 class APIResponseCode(object):
     FAILURE = (-1, 'General failure')  # General logic error
     SUCCESS = (0, 'Success')  # Successful response
