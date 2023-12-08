@@ -35,6 +35,8 @@ def get_students(db: Session, students: Optional[GetStudentsDeserializer] = None
         if students.is_deleted is not None:
             filters.append(models.Student.is_deleted == students.is_deleted)
 
+    filters.append(models.Student.is_deleted == False)
+
     db_students = db.query(models.Student).filter(*filters).all()
 
     return db_students
