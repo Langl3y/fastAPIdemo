@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
 import models
-from basemodels import CreateStudentsDeserializer, GetStudentsDeserializer, UpdateStudentsDeserializer
+from basemodels import (CreateStudentsDeserializer,
+                        GetStudentsDeserializer,
+                        UpdateStudentsDeserializer
+                        )
 from typing import Optional
 
 
