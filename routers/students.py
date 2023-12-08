@@ -4,7 +4,7 @@ from database import SessionLocal
 from sqlalchemy.orm import Session
 
 from basemodels import GetStudentsDeserializer, UpdateStudentsDeserializer, CreateStudentsDeserializer, DeleteStudentDeserializer
-from common.responses import APIResponseMessage
+from common.responses import APIResponseCode
 from services.students import create_student, get_students, update_students, delete_student
 
 router = APIRouter()
@@ -23,11 +23,10 @@ def get_db():
 async def create_student_handler(student: CreateStudentsDeserializer, db: Session = Depends(get_db)):
     try:
         db_student = create_student(db, student)
-        APIResponseMessage.SUCCESSFULLY_CREATED["data"] = db_student
 
-        return APIResponseMessage.SUCCESSFULLY_CREATED
+        return APIResponseCode.SUCCESS, db_student
     except Exception as e:
-        return APIResponseMessage.FAILED_TO_CREATE
+        return APIResponseCode.SERVER_ERROR, {}
 
 
 @router.post("/get_students/", status_code=status.HTTP_200_OK)
@@ -35,11 +34,9 @@ async def get_students_handler(db: Session = Depends(get_db), students: Optional
     db_students = get_students(db, students)
 
     if not db_students:
-        return APIResponseMessage.FAILED_TO_RETRIEVE
+        return APIResponseCode.NOT_FOUND, []
 
-    APIResponseMessage.SUCCESSFULLY_RETRIEVED["data"] = db_students
-
-    return APIResponseMessage.SUCCESSFULLY_RETRIEVED
+    return APIResponseCode.SUCCESS, db_students
 
 
 @router.post("/update_student/", status_code=status.HTTP_200_OK)
@@ -47,11 +44,9 @@ async def update_student_handler(student: Optional[UpdateStudentsDeserializer], 
     db_student = update_students(student.id, student, db)
 
     if db_student is None:
-        return APIResponseMessage.FAILED_TO_RETRIEVE
+        return APIResponseCode.NOT_FOUND, {}
 
-    APIResponseMessage.SUCCESSFULLY_UPDATED["data"] = db_student
-
-    return APIResponseMessage.SUCCESSFULLY_UPDATED
+    return APIResponseCode.SUCCESS, db_student
 
 
 @router.post("/delete_student/", status_code=status.HTTP_200_OK)
@@ -59,6 +54,6 @@ async def delete_student_handler(student: DeleteStudentDeserializer, db: Session
     db_student = delete_student(student.id, db)
 
     if db_student is None:
-        return APIResponseMessage.FAILED_TO_RETRIEVE
+        return APIResponseCode.NOT_FOUND, {}
 
-    return APIResponseMessage.SUCCESSFULLY_DELETED
+    return APIResponseCode.SUCCESS, db_student
