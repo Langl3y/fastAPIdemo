@@ -6,7 +6,7 @@ class Student(Base):
     __tablename__ = 'students'
 
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    name = Column(String(50), unique=True)
+    name = Column(String(50), unique=False)
     age = Column(Integer, unique=False)
     course = Column(String(50), unique=False)
     created_at = Column(DateTime, default=func.now())
