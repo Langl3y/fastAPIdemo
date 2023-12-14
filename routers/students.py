@@ -69,4 +69,4 @@ async def delete_student_handler(student: DeleteStudentDeserializer,
     if db_student is None:
         return APIResponseCode.NOT_FOUND, {}
 
-    return APIResponseCode.SUCCESS, db_student
+    return APIResponseCode.SUCCESS
