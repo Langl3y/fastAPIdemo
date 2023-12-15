@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 import models
 from basemodels import (CreateStudentsDeserializer,
                         GetStudentsDeserializer,
-                        UpdateStudentsDeserializer
+                        UpdateStudentDeserializer
                         )
 from typing import Optional
 
@@ -35,14 +35,12 @@ def get_students(db: Session, students: Optional[GetStudentsDeserializer] = None
         if students.is_deleted is not None:
             filters.append(models.Student.is_deleted == students.is_deleted)
 
-    filters.append(models.Student.is_deleted == False)
-
     db_students = db.query(models.Student).filter(*filters).all()
 
     return db_students
 
 
-def update_students(id: int, student: UpdateStudentsDeserializer, db: Session):
+def update_student(id: int, student: UpdateStudentDeserializer, db: Session):
     db_student = db.query(models.Student).filter(models.Student.id == id).first()
 
     if db_student:

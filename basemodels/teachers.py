@@ -2,13 +2,13 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class CreateStudentsDeserializer(BaseModel):
+class CreateTeachersDeserializer(BaseModel):
     name: str
     age: int
     course: str
 
 
-class GetStudentsDeserializer(BaseModel):
+class GetTeachersDeserializer(BaseModel):
     id: Optional[int] = None
     name: Optional[str] = None
     age: Optional[int] = None
@@ -16,7 +16,7 @@ class GetStudentsDeserializer(BaseModel):
     is_deleted: Optional[bool] = None
 
 
-class UpdateStudentDeserializer(BaseModel):
+class UpdateTeacherDeserializer(BaseModel):
     id: int
     name: Optional[str] = None
     age: Optional[int] = None
@@ -24,5 +24,5 @@ class UpdateStudentDeserializer(BaseModel):
     is_deleted: Optional[bool] = None
 
 
-class DeleteStudentDeserializer(BaseModel):
+class DeleteTeacherDeserializer(BaseModel):
     id: int

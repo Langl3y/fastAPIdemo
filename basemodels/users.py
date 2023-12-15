@@ -2,8 +2,11 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    username: str
-    disabled: bool = False
+    name: str
+    fullname: str
+    email: str
+    role: str
+    is_disabled: bool = False
 
 
 class UserInDB(User):

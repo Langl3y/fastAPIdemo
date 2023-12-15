@@ -5,14 +5,14 @@ from sqlalchemy.orm import Session
 
 from basemodels import (
     GetStudentsDeserializer,
-    UpdateStudentsDeserializer,
+    UpdateStudentDeserializer,
     CreateStudentsDeserializer,
     DeleteStudentDeserializer
 )
 from common.responses import APIResponseCode
 from services.students import (create_student,
                                get_students,
-                               update_students,
+                               update_student,
                                delete_student
                                )
 
@@ -51,9 +51,9 @@ async def get_students_handler(db: Session = Depends(get_db),
 
 
 @router.post("/update_student/", status_code=status.HTTP_200_OK)
-async def update_student_handler(student: Optional[UpdateStudentsDeserializer],
+async def update_student_handler(student: Optional[UpdateStudentDeserializer],
                                  db: Session = Depends(get_db)):
-    db_student = update_students(student.id, student, db)
+    db_student = update_student(student.id, student, db)
 
     if db_student is None:
         return APIResponseCode.NOT_FOUND, {}
@@ -69,4 +69,4 @@ async def delete_student_handler(student: DeleteStudentDeserializer,
     if db_student is None:
         return APIResponseCode.NOT_FOUND, {}
 
-    return APIResponseCode.SUCCESS
+    return APIResponseCode.SUCCESS, db_student
